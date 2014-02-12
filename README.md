@@ -1,2 +1,2 @@
-Discovery-Education
+Birst - Salesforce Integration
 ===================
