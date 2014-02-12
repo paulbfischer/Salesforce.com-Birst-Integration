@@ -1,0 +1,52 @@
+public class AccountControllerExtension {
+
+    public String mylink { get; set; }
+ public String currentId {get;set;}
+
+    public AccountControllerExtension() {
+
+ if ( currentId == null ) {
+            currentId = System.currentPageReference().getParameters().get( 'id' );
+
+system.debug('Acount Id is -1'+currentId);
+        }
+system.debug('Acount Id is -2'+currentId);
+ HttpRequest req = new HttpRequest();
+        HttpResponse res = new HttpResponse();
+        Http http = new Http(); 
+
+
+        req.setMethod('POST' ); // Method Type 
+        //req.setEndpoint('https://app2104.bws.birst.com/Login.aspx'); // Server Url
+        //req.setEndpoint('https://login.bws.birst.com/Login.aspx'); // Server Url
+
+        req.setEndpoint('https://login.bws.birst.com/TokenGenerator.aspx'); // Server Url
+        //  req.setEndpoint('https://app2104.bws.birst.com/BXE/TokenGenerator.aspx'); // Server Url
+
+
+       req.setHeader('Content-Type', 'application/x-www-form-urlencoded'); // Content Type
+       // req.setHeader('Content-Type', 'application/xml'); // Content Type
+        //req.setHeader('Content-Type','text/xml;charset=UTF-8');
+
+
+        req.setBody('birst.username=chadpennisi@yahoo.com&birst.ssopassword=Dw4rnRRL2Y9U4RPvqdQIpBk1ZTl2STax&birst.spaceId=ed34a02f-06e2-4d66-a31c-986d2c8ee6ca'); // Request Parameters
+
+        try {
+            system.debug('Request is ---'+req.getBody());
+            res = http.send(req);
+            if(res.getBody() != null){
+                System.debug('*****'+res.getBody());
+
+                
+
+      
+            }
+        } catch(Exception e) {
+            System.debug('error: '+ e);
+        }
+this.mylink = 'https://login.bws.birst.com/SSO.aspx?birst.module=dashboard&birst.SSOToken='+res.getBody();
+
+    }
+
+    
+    }
